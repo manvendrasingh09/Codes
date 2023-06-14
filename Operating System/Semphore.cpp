@@ -21,14 +21,14 @@ private:
     condition_variable condition_;
     int count_;
 };
-Semaphore semaphore(1);  // Initialize the semaphore with a count of 1
+Semaphore semaphore(1); 
 void worker(int id) {
     cout << "Worker " << id << " is waiting." << endl;
-    semaphore.wait();  // Wait for the semaphore
+    semaphore.wait();  
     cout << "Worker " << id << " starts working." << endl;
-    this_thread::sleep_for(chrono::seconds(2));  // Simulate some work
+    this_thread::sleep_for(chrono::seconds(2));  
     cout << "Worker " << id << " finishes working." << endl;
-    semaphore.notify();  // Release the semaphore
+    semaphore.notify();  
 }
 int main() {
     thread workers[3];
