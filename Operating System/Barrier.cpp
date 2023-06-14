@@ -11,14 +11,18 @@ public:
     {
         std::unique_lock<std::mutex> lock(mutex);
         int gen = generation;
+        int threadIndex = --count;
 
-        if (--count == 0) {
+        if (threadIndex == 0) {
+            std::cout << "All threads reached the barrier." << std::endl;
             generation++;
             count = totalThreads;
             cv.notify_all();
         } else {
+            std::cout << "Thread " << std::this_thread::get_id() << " reached the barrier." << std::endl;
             cv.wait(lock, [this, gen] { return gen != generation; });
         }
+        std::cout << "Thread " << std::this_thread::get_id() << " passed the barrier." << std::endl;
     }
 
 private:
@@ -33,14 +37,19 @@ Barrier barrier(2);
 
 void threadFunction()
 {
+    std::cout << "Thread " << std::this_thread::get_id() << " started." << std::endl;
+
     // Perform some work before reaching the barrier
+    std::this_thread::sleep_for(std::chrono::seconds(2));
 
     barrier.wait();
 
     // Critical section code
-    std::cout << "Executing critical section..." << std::endl;
+    std::cout << "Thread " << std::this_thread::get_id() << " executing critical section..." << std::endl;
+    std::this_thread::sleep_for(std::chrono::seconds(2));
 
     // Perform some work after leaving the barrier
+    std::cout << "Thread " << std::this_thread::get_id() << " finished." << std::endl;
 }
 
 int main()
