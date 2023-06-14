@@ -1,2 +1,2 @@
 # Codes
-All the codes that I did in college
+Codes that I did in college
