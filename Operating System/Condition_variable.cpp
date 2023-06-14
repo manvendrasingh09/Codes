@@ -15,6 +15,7 @@ void waitForSignal()
     cv.wait(lock, [] { return ready; });
     // Critical section code
     cout << "Executing critical section..." << endl;
+    //Output message after a delay of 2 seconds, indicating that the condition variable correctly synchronized the two threads
 }
 
 void sendSignal()
