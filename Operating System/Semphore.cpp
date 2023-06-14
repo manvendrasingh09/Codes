@@ -2,53 +2,41 @@
 #include <thread>
 #include <mutex>
 #include <condition_variable>
-
 using namespace std;
-
 class Semaphore {
 public:
-    Semaphore(int count) : count_(count) {}
-
-    void Wait() {
+    Semaphore(int count = 0) : count_(count) {}
+    void notify() {
         unique_lock<mutex> lock(mutex_);
-        while (count_ == 0) {
-            condition_.wait(lock);
-        }
-        count_--;
-    }
-
-    void Signal() {
-        unique_lock<mutex> lock(mutex_);
-        count_++;
+        ++count_;
         condition_.notify_one();
     }
-
+    void wait() {
+        unique_lock<mutex> lock(mutex_);
+        condition_.wait(lock, [this]() { return count_ > 0; });
+        --count_;
+    }
 private:
-    int count_;
     mutex mutex_;
     condition_variable condition_;
+    int count_;
 };
-
-Semaphore semaphore(1);
-
-void WorkerThread(int id) {
-    semaphore.Wait();
-
-    // Critical section
-    cout << "Thread " << id << " is in the critical section." << endl;
-
-    semaphore.Signal();
-
-    // Remaining section
-    cout << "Thread " << id << " is in the remaining section." << endl;
+Semaphore semaphore(1);  // Initialize the semaphore with a count of 1
+void worker(int id) {
+    cout << "Worker " << id << " is waiting." << endl;
+    semaphore.wait();  // Wait for the semaphore
+    cout << "Worker " << id << " starts working." << endl;
+    this_thread::sleep_for(chrono::seconds(2));  // Simulate some work
+    cout << "Worker " << id << " finishes working." << endl;
+    semaphore.notify();  // Release the semaphore
 }
-
 int main() {
-    thread t1(WorkerThread, 1);
-    thread t2(WorkerThread, 2);
-
-    t1.join();
-    t2.join();
-
+    thread workers[3];
+    for (int i = 0; i < 3; ++i) {
+        workers[i] = thread(worker, i + 1);
+    }
+    for (int i = 0; i < 3; ++i) {
+        workers[i].join();
+    }
     return 0;
 }
