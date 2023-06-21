@@ -1,79 +1,66 @@
 #include <iostream>
 #include <thread>
+#include <vector>
 #include <mutex>
-#include <condition_variable>
-
+#include <chrono>
 using namespace std;
 
-const int NUM_PHILOSOPHERS = 5;
-
-class DiningPhilosophers {
+class DiningPhilosophers
+{
 private:
-    mutex mutexes[NUM_PHILOSOPHERS];
-    condition_variable cv[NUM_PHILOSOPHERS];
-    enum class State { THINKING, HUNGRY, EATING };
-    State states[NUM_PHILOSOPHERS];
+    int numPhilosophers;
+    vector<thread> philosophers;
+    vector<mutex> forks;
+    vector<int> eatCount;
+    mutex printMutex;
+    const int MAX_EAT_CYCLES = 3;
 
 public:
-    DiningPhilosophers() {
-        for (int i = 0; i < NUM_PHILOSOPHERS; ++i) {
-            states[i] = State::THINKING;
+    DiningPhilosophers(int num) : numPhilosophers(num), forks(num), eatCount(num, 0) {}
+
+    void startEating()
+    {
+        for (int i = 0; i < numPhilosophers; ++i)
+        {
+            philosophers.emplace_back(&DiningPhilosophers::dine, this, i);
+        }
+        for (int i = 0; i < numPhilosophers; ++i)
+        {
+            philosophers[i].join();
         }
     }
 
-    void takeForks(int philosopherId) {
-        mutex lock(mutexes[philosopherId]);
-        states[philosopherId] = State::HUNGRY;
-        test(philosopherId);
-        if (states[philosopherId] != State::EATING) {
-            cv[philosopherId].wait(lock);
-        }
-    }
-
-    void putForks(int philosopherId) {
-        mutex lock(mutexes[philosopherId]);
-        states[philosopherId] = State::THINKING;
-        test((philosopherId + NUM_PHILOSOPHERS - 1) % NUM_PHILOSOPHERS);
-        test((philosopherId + 1) % NUM_PHILOSOPHERS);
-    }
-
-    void test(int philosopherId) {
-        if (states[philosopherId] == State::HUNGRY &&
-            states[(philosopherId + NUM_PHILOSOPHERS - 1) % NUM_PHILOSOPHERS] != State::EATING &&
-            states[(philosopherId + 1) % NUM_PHILOSOPHERS] != State::EATING) {
-            states[philosopherId] = State::EATING;
-            cv[philosopherId].notify_all();
+private:
+    void dine(int philosopherID)
+    {
+        int leftFork = philosopherID;
+        int rightFork = (philosopherID + 1) % numPhilosophers;
+        while (eatCount[philosopherID] < MAX_EAT_CYCLES)
+        {
+            {
+                unique_lock<mutex> leftLock(forks[leftFork]);
+                unique_lock<mutex> rightLock(forks[rightFork]);
+                printMutex.lock();
+                cout << "Philosopher " << philosopherID << " is eating." << endl;
+                printMutex.unlock();
+                this_thread::sleep_for(chrono::seconds(2));
+                printMutex.lock();
+                cout << "Philosopher " << philosopherID << " has finished eating." << endl;
+                printMutex.unlock();
+            }
+            this_thread::sleep_for(chrono::seconds(2));
+            printMutex.lock();
+            cout << "Philosopher " << philosopherID << " is thinking." << endl;
+            printMutex.unlock();
+            ++eatCount[philosopherID];
         }
     }
 };
 
-void philosopher(DiningPhilosophers& dp, int philosopherId) {
-    while (true) {
-        // Thinking
-        cout << "Philosopher " << philosopherId << " is thinking." << endl;
-        this_thread::sleep_for(chrono::seconds(1));
-
-        // Take forks
-        dp.takeForks(philosopherId);
-        cout << "Philosopher " << philosopherId << " is eating." << endl;
-        this_thread::sleep_for(chrono::seconds(2));
-
-        // Put forks
-        dp.putForks(philosopherId);
-    }
-}
-
-int main() {
-    DiningPhilosophers dp;
-    thread philosophers[NUM_PHILOSOPHERS];
-
-    for (int i = 0; i < NUM_PHILOSOPHERS; ++i) {
-        philosophers[i] = thread(philosopher, ref(dp), i);
-    }
-
-    for (int i = 0; i < NUM_PHILOSOPHERS; ++i) {
-        philosophers[i].join();
-    }
-
+int main()
+{
+    int numPhilosophers = 5;
+    DiningPhilosophers dp(numPhilosophers);
+    dp.startEating();
     return 0;
 }
