@@ -1,159 +1,102 @@
 #include <iostream>
 #include <fstream>
-#include <map>
 #include <string>
+#include <unordered_map>
 #include <sstream>
-#include <stack>
-#include <stdexcept>
 
-using namespace std;
+std::unordered_map<std::string, std::string> expressions;  // To store expressions
 
-map<string, string> variables;
+// Function to perform constant propagation
+std::string constantPropagation(const std::string& expression) {
+    std::istringstream iss(expression);
+    std::string token;
+    std::string result;
 
-int getPrecedence(char op) {
-    if (op == '*' || op == '/')
-        return 2;
-    if (op == '+' || op == '-')
-        return 1;
-    return -1;
+    while (std::getline(iss, token, ' ')) {
+        if (token[0] >= 'a' && token[0] <= 'z') {
+            // Token is a variable
+            if (expressions.find(token) != expressions.end()) {
+                // Variable has an expression value
+                result += expressions[token];
+            } else {
+                // Variable has no expression value, keep it as is
+                result += token;
+            }
+        } else {
+            // Token is an operator or constant value
+            result += token;
+        }
+        result += ' ';
+    }
+
+    return result;
 }
 
-int evaluateExpression(const string& expression) {
-    stack<char> operators;
-    stack<int> operands;
+int evaluateExpression(const std::string& expression) {
+    std::istringstream iss(expression);
+    std::string token;
+    std::string operation;
+    int result = 0;
+    bool isFirstToken = true;
 
-    for (size_t i = 0; i < expression.length(); ++i) {
-        if (expression[i] == ' ')
-            continue;
-
-        if (isdigit(expression[i])) {
-            int operand = 0;
-            while (i < expression.length() && isdigit(expression[i])) {
-                operand = operand * 10 + (expression[i] - '0');
-                i++;
-            }
-            operands.push(operand);
-            i--;
-        } else if (isalpha(expression[i])) {
-            string variable;
-            while (i < expression.length() && isalnum(expression[i])) {
-                variable += expression[i];
-                i++;
-            }
-            if (variables.find(variable) == variables.end()) {
-                throw out_of_range("Variable not found: " + variable);
-            }
-            int value = evaluateExpression(variables[variable]);
-            operands.push(value);
-            i--;
-        } else if (expression[i] == '(') {
-            operators.push(expression[i]);
-        } else if (expression[i] == ')') {
-            while (!operators.empty() && operators.top() != '(') {
-                int operand2 = operands.top();
-                operands.pop();
-                int operand1 = operands.top();
-                operands.pop();
-                char op = operators.top();
-                operators.pop();
-                int result = 0;
-                switch (op) {
-                    case '+':
-                        result = operand1 + operand2;
-                        break;
-                    case '-':
-                        result = operand1 - operand2;
-                        break;
-                    case '*':
-                        result = operand1 * operand2;
-                        break;
-                    case '/':
-                        result = operand1 / operand2;
-                        break;
-                }
-                operands.push(result);
-            }
-            if (!operators.empty())
-                operators.pop(); // Remove '('
+    while (std::getline(iss, token, ' ')) {
+        if (isFirstToken) {
+            result = std::stoi(token);
+            isFirstToken = false;
+        } else if (token == "+" || token == "-") {
+            operation = token;
         } else {
-            while (!operators.empty() && getPrecedence(operators.top()) >= getPrecedence(expression[i])) {
-                int operand2 = operands.top();
-                operands.pop();
-                int operand1 = operands.top();
-                operands.pop();
-                char op = operators.top();
-                operators.pop();
-                int result = 0;
-                switch (op) {
-                    case '+':
-                        result = operand1 + operand2;
-                        break;
-                    case '-':
-                        result = operand1 - operand2;
-                        break;
-                    case '*':
-                        result = operand1 * operand2;
-                        break;
-                    case '/':
-                        result = operand1 / operand2;
-                        break;
-                }
-                operands.push(result);
+            int operand = std::stoi(token);
+            if (operation == "+") {
+                result += operand;
+            } else if (operation == "-") {
+                result -= operand;
             }
-            operators.push(expression[i]);
         }
     }
 
-    while (!operators.empty()) {
-        int operand2 = operands.top();
-        operands.pop();
-        int operand1 = operands.top();
-        operands.pop();
-        char op = operators.top();
-        operators.pop();
-        int result = 0;
-        switch (op) {
-            case '+':
-                result = operand1 + operand2;
-                break;
-            case '-':
-                result = operand1 - operand2;
-                break;
-            case '*':
-                result = operand1 * operand2;
-                break;
-            case '/':
-                result = operand1 / operand2;
-                break;
-        }
-        operands.push(result);
-    }
-
-    return operands.top();
+    return result;
 }
 
 int main() {
-    ifstream inputFile("input2.txt");
-    string line;
-    while (getline(inputFile, line)) {
-        size_t pos = line.find("=");
-        if (pos != string::npos) {
-            string variable = line.substr(0, pos);
-            string expression = line.substr(pos + 1);
-            variables[variable] = expression;
+    std::ifstream inputFile("input2.txt");
+    std::string line;
+
+    while (std::getline(inputFile, line)) {
+        std::istringstream iss(line);
+        std::string variable, equalSign, expression;
+        if (std::getline(iss, variable, '=') && std::getline(iss, expression)) {
+            expressions[variable] = expression;
         }
     }
 
-    //cout << "After constant propagation" << endl;
-    for (const auto& variable : variables) {
-        cout << variable.first << "=" << variable.second << endl;
-        try {
-            int value = evaluateExpression(variable.second);
-            cout << "Result: " << variable.first << "=" << value << endl;
-        } catch (const out_of_range& e) {
-            cerr << "Error: " << e.what() << endl;
+    inputFile.close();
+
+    std::ifstream inputFile2("input2.txt");
+    while (std::getline(inputFile2, line)) {
+        std::cout << line << std::endl;
+
+        std::string variable, equalSign, expression;
+        std::istringstream iss(line);
+        if (std::getline(iss, variable, '=') && std::getline(iss, expression)) {
+            std::string propagatedExpression = constantPropagation(expression);
+            std::cout << variable << '=' << propagatedExpression << std::endl;
+
+            int result;
+            if (std::all_of(propagatedExpression.begin(), propagatedExpression.end(), [](char c) {
+                return std::isdigit(c) || c == '+' || c == '-';
+            })) {
+                result = evaluateExpression(propagatedExpression);
+                std::cout << "Result: " << result << std::endl;
+            } else {
+                std::cout << "Result: Cannot evaluate expression" << std::endl;
+            }
         }
+
+        std::cout << std::endl;
     }
+
+    inputFile2.close();
 
     return 0;
 }
