@@ -1,87 +1,86 @@
 #include <iostream>
 #include <fstream>
-#include <unordered_map>
 #include <string>
-#include <sstream>
-
+#include <unordered_map>
+#include <regex>
 using namespace std;
-
-// Function to eliminate dead code
-string eliminateDeadCode(const string& input) {
-    istringstream iss(input);
+string DeadCodeElimination(const string &code)
+{
+    unordered_map<string, int> constantMap;
+    regex regex("(\\w+)=(\\d+)");
+    smatch match;
+    string optimizedCode = "";
     string line;
-    string result;
-
-    unordered_map<string, bool> variables;
-
-    while (getline(iss, line)) {
-        if (line.find('=') != string::npos) {
-            string variable = line.substr(0, line.find('='));
-            variables[variable] = true;
+    istringstream iss(code);
+    while (getline(iss, line))
+    {
+        if (regex_search(line, match, regex))
+        {
+            string variable = match[1].str();
+            int value = stoi(match[2].str());
+            constantMap[variable] = value;
+        }
+        else
+        {
+            string optimizedLine = line;
+            for (auto it = constantMap.begin(); it != constantMap.end(); ++it)
+            {
+                string variable = it->first;
+                int value = it->second;
+                string constantPattern = "\\b" + variable + "\\b";
+                std::regex constantRegex(constantPattern);
+                optimizedLine = regex_replace(optimizedLine, constantRegex, to_string(value));
+            }
+            optimizedCode += optimizedLine + "\n";
         }
     }
-
-    iss.clear();
-    iss.seekg(0, ios::beg);
-
-    while (getline(iss, line)) {
-        string variable = line.substr(0, line.find('='));
-        if (variables[variable]) {
-            result += line + '\n';
+    return optimizedCode;
+}
+string CommonExpressionElimination(const string &code)
+{
+    unordered_map<string, int> constantMap;
+    regex regex("(\\w+)=(\\d+)");
+    smatch match;
+    string optimizedCode = "";
+    string line;
+    istringstream iss(code);
+    while (getline(iss, line))
+    {
+        if (regex_search(line, match, regex))
+        {
+            string variable = match[1].str();
+            int value = stoi(match[2].str());
+            constantMap[variable] = value;
+        }
+        else
+        {
+            string optimizedLine = line;
+            for (auto it = constantMap.begin(); it != constantMap.end(); ++it)
+            {
+                string variable = it->first;
+                int value = it->second;
+                string constantPattern = "\\b" + variable + "\\b";
+                std::regex constantRegex(constantPattern);
+                optimizedLine = regex_replace(optimizedLine, constantRegex, to_string(value));
+            }
+            optimizedCode += optimizedLine + "\n";
         }
     }
-
-    return result;
+    return optimizedCode;
 }
 
-// Function to eliminate common subexpressions
-string eliminateCommonExpressions(const string& input) {
-    istringstream iss(input);
-    string line;
-    string result;
-
-    unordered_map<string, string> expressions;
-    unordered_map<string, string> expressionsMap;
-
-    while (getline(iss, line)) {
-        string variable = line.substr(0, line.find('='));
-        string expression = line.substr(line.find('=') + 1);
-
-        if (expressions.find(expression) == expressions.end()) {
-            expressions[expression] = variable;
-        }
-
-        if (expressionsMap.find(expression) == expressionsMap.end()) {
-            expressionsMap[expression] = variable;
-            result += line + '\n';
-        } else {
-            result += expressions[expression] + '=' + expression + '\n';
-        }
-    }
-
-    return result;
+void optimize(string code)
+{
+    string optimizedCode = DeadCodeElimination(code);
+    cout << "Optimized Code (after dead code elimination):\n"<< optimizedCode;
+    optimizedCode = CommonExpressionElimination(code);
+    cout << "\n\nOptimized Code (after common expression elimination):\n"<< optimizedCode;
 }
-
-int main() {
-    ifstream inputFile("input3.txt");
-    stringstream buffer;
-    buffer << inputFile.rdbuf();
-    string input = buffer.str();
-
-    // Perform dead code elimination
-    string afterDeadCodeElimination = eliminateDeadCode(input);
-
-    cout << "After dead code elimination:\n";
-    cout << afterDeadCodeElimination << '\n';
-
-    // Perform common subexpression elimination
-    string afterCommonExpressionElimination = eliminateCommonExpressions(afterDeadCodeElimination);
-
-    cout << "Eliminate Common Expression:\n";
-    cout << afterCommonExpressionElimination << '\n';
-
-    cout << "Optimized code:\n";
-    cout << eliminateDeadCode(afterCommonExpressionElimination) << '\n';
-
+int main()
+{
+    ifstream infile("input.txt");
+    string code;
+    getline(infile, code);
+    optimize(code);
     return 0;
 }
