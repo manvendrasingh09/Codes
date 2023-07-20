@@ -3,7 +3,7 @@
 %}
 %%
 "Hi" {printf("Hi");}
-"Bye" {printf("Bye");} 
+.* {printf("Bye");} 
 %%
 int yywrap(){
 return 1;
