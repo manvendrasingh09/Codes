@@ -2,14 +2,13 @@
 #include<stdio.h>
 %}
 %%
-"Hi" {printf("Hi");}
-.* {printf("Bye");} 
+"<"[^>]*> {printf("%s\n", yytext); }
+. ;
 %%
-int yywrap(){
-return 1;
-}
-int main(){
-printf("enter the string: ");
+int yywrap(){}
+int main()
+{
+yyin = fopen("input.txt","r");
 yylex();
 return 0;
 }
