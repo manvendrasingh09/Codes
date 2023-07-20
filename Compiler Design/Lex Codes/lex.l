@@ -9,7 +9,7 @@ int yywrap(){
 return 1;
 }
 int main(){
-printf("enter the string");
+printf("enter the string: ");
 yylex();
 return 0;
 }
