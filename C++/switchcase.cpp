@@ -21,3 +21,4 @@ int main()
         break;
     }
     cout<<"Done with Switch cases";
+}
