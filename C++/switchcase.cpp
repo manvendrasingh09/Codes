@@ -20,4 +20,4 @@ int main()
         cout<<"Enter a valid age";
         break;
     }
-}
+    cout<<"Done with Switch cases";
