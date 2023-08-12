@@ -9,7 +9,7 @@ int main()
     {
     case 18:
         cout<<"Your age is 18";
-        break;
+        break; //to terminate the program if case matches with the input
     case 22:
         cout<<"Your age is 22";
         break;
