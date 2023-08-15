@@ -4,7 +4,7 @@ int main()
 {
     int n;
     cout<<"Enter the Number: ";
-    while(n>=0)
+    while(n>0)
     {
         cin>>n;
     }
