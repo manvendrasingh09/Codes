@@ -9,22 +9,22 @@ int main()
     {
         if(a>c)
         {
-            cout<<a<<" is the largest number.";
+            cout<<a<<" is the largest number";
         }
         else
         {
-            cout<<c<<" is the largest number.";
+            cout<<c<<" is the largest number";
         }
     }
     else
     {
         if(b>c)
         {
-            cout<<b<<" is the largest number.";
+            cout<<b<<" is the largest number";
         }
         else
         {
-            cout<<c<<" is the largest number.";
+            cout<<c<<" is the largest number";
         }
     }
     return 0;
