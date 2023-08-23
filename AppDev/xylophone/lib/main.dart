@@ -8,63 +8,37 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  void playSound(int a) {
-    final player = AudioPlayer();
-    player.setSource(
-      AssetSource('note$a.wav'),
+  Expanded buildKey(Color color, int a) {
+    return Expanded(
+      child: MaterialButton(
+        color: color,
+        onPressed: () {
+          final player = AudioPlayer();
+          player.setSource(
+            AssetSource('note$a.wav'),
+          );
+          player.resume();
+        },
+      ),
     );
-    player.resume();
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        backgroundColor: Colors.black,
         body: SafeArea(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              MaterialButton(
-                color: Colors.red,
-                onPressed: () {
-                  playSound(1);
-                },
-              ),
-              MaterialButton(
-                color: Colors.blue,
-                onPressed: () {
-                  playSound(2);
-                },
-              ),
-              MaterialButton(
-                color: Colors.green,
-                onPressed: () {
-                  playSound(3);
-                },
-              ),
-              MaterialButton(
-                color: Colors.yellow,
-                onPressed: () {
-                  playSound(4);
-                },
-              ),
-              MaterialButton(
-                color: Colors.orange,
-                onPressed: () {
-                  playSound(5);
-                },
-              ),
-              MaterialButton(
-                color: Colors.purple,
-                onPressed: () {
-                  playSound(6);
-                },
-              ),
-              MaterialButton(
-                color: Colors.brown,
-                onPressed: () {
-                  playSound(7);
-                },
-              ),
+              buildKey(Colors.red, 1),
+              buildKey(Colors.blue, 2),
+              buildKey(Colors.green, 3),
+              buildKey(Colors.yellow, 4),
+              buildKey(Colors.orange, 5),
+              buildKey(Colors.purple, 6),
+              buildKey(Colors.brown, 7),
             ],
           ),
         ),
