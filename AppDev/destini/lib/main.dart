@@ -32,7 +32,7 @@ class _StoryPageState extends State<StoryPage> {
         title: const Center(
           child: Text('Destini'),
         ),
-        backgroundColor: Colors.blue[700],
+        backgroundColor: Colors.blue[800],
       ),
       body: Container(
         decoration: const BoxDecoration(
