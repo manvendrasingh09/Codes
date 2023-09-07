@@ -16,6 +16,8 @@ class InputPage extends StatefulWidget {
 class _InputPageState extends State<InputPage> {
   Gender selectedGender = Gender.none;
   int height = 130;
+  int weight = 60;
+  int age = 18;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -115,14 +117,44 @@ class _InputPageState extends State<InputPage> {
               ),
             ),
           ),
-          const Expanded(
+          Expanded(
             child: Row(
               children: [
                 Expanded(
-                  child: ReusableCard(colour: kActiveCardColour),
+                  child: ReusableCard(
+                    colour: kActiveCardColour,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'WEIGHT',
+                          style: kLabelStyle,
+                        ),
+                        Text(
+                          weight.toString(),
+                          style: kFontStyle,
+                        )
+                      ],
+                    ),
+                  ),
                 ),
                 Expanded(
-                  child: ReusableCard(colour: kActiveCardColour),
+                  child: ReusableCard(
+                    colour: kActiveCardColour,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'AGE',
+                          style: kLabelStyle,
+                        ),
+                        Text(
+                          age.toString(),
+                          style: kFontStyle,
+                        )
+                      ],
+                    ),
+                  ),
                 ),
               ],
             ),
