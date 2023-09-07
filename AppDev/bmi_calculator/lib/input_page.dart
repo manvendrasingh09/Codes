@@ -97,14 +97,11 @@ class _InputPageState extends State<InputPage> {
                       thumbColor: const Color(0xffeb1555),
                       activeTrackColor: Colors.white,
                       inactiveTrackColor: const Color(0xff8d8e98),
-                      trackHeight: 3.0,
                     ),
                     child: Slider(
                       value: height.toDouble(),
                       min: 60,
                       max: 200,
-                      activeColor: const Color(0xFFEB1555),
-                      inactiveColor: const Color(0xFF8D8E98),
                       onChanged: (double newValue) {
                         setState(
                           () {
