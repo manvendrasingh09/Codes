@@ -1,16 +1,6 @@
-# destini
+# Destini
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This is my 8th Flutter project.
+<br> This app runs a story based on our answers. So, different answers will leads to different story 
+## Preview of the Application
+https://github.com/manvendrasingh09/Codes/assets/113695456/784eed4d-461c-42d7-89af-a3bafe9fd4bf
