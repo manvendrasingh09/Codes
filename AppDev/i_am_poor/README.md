@@ -1,16 +1,8 @@
-# i_am_poor
+# I am Poor App
 
-A new Flutter project.
+This is my Second Flutter Project.
+<br>A basic app which has image inserted in the center of the screen.
 
-## Getting Started
+## Preview of the Application
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img src="https://github.com/manvendrasingh09/Codes/assets/113695456/d87838de-9192-479e-a0ff-80905bd2c8b3" width="300" >
