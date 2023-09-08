@@ -1,16 +1,6 @@
-# i_am_rich
+# I am Rich App
 
-A new Flutter project.
+A basic app which has image inserted in the center of the screen.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Preview of the App
+![Screenshot_2023-09-08-20-25-37-42_d7d9a2bf202e9d2bb5135290ec78431a](https://github.com/manvendrasingh09/Codes/assets/113695456/5c3a5bcf-f613-4c52-84ba-fb9da1790f33)
