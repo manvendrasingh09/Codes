@@ -1,16 +1,8 @@
-# mi_card_flutter
+# MiCard App
 
-A new Flutter project.
+This is my third Flutter project.
+<br>A basic app that can work as a digit card for the user.
 
-## Getting Started
+## Preview of the Application
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img src="https://github.com/manvendrasingh09/Codes/assets/113695456/d0cbce27-f237-41ec-8a8f-aa950e5e1a45" width="300" >
