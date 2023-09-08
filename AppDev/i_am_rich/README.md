@@ -1,5 +1,5 @@
 # I am Rich App
-
+This is my First Flutter Project.
 A basic app which has image inserted in the center of the screen.
 
 ## Preview of the App
