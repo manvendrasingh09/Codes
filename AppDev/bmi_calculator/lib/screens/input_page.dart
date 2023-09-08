@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'RoundIconButton.dart';
-import 'bottom_button.dart';
-import 'icon_content.dart';
-import 'reusable_card.dart';
-import 'constants.dart';
+import '../Components/RoundIconButton.dart';
+import '../Components/bottom_button.dart';
+import '../Components/icon_content.dart';
+import '../Components/reusable_card.dart';
+import '../Components/constants.dart';
 import 'results_page.dart';
 
 enum Gender { none, male, female }
@@ -130,7 +130,7 @@ class _InputPageState extends State<InputPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(
-                          'WEIGHT',
+                          'WEIGHT (kg)',
                           style: kLabelStyle,
                         ),
                         Text(
