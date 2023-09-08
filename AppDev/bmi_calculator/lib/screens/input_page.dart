@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'RoundIconButton.dart';
+import 'bottom_button.dart';
 import 'icon_content.dart';
 import 'reusable_card.dart';
 import 'constants.dart';
@@ -208,7 +210,8 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ),
-          GestureDetector(
+          BottomButton(
+            bText: 'CALCULATE',
             onTap: () {
               Navigator.push(
                 context,
@@ -217,36 +220,9 @@ class _InputPageState extends State<InputPage> {
                 ),
               );
             },
-            child: Container(
-              color: kBottomContainerColour,
-              margin: const EdgeInsets.only(top: 10.0),
-              height: kBottomContainerHeight,
-              width: double.infinity,
-              child: const Text('CALCULATE'),
-            ),
           )
         ],
       ),
-    );
-  }
-}
-
-class RoundIconButton extends StatelessWidget {
-  const RoundIconButton({required this.icon, required this.onPress, super.key});
-  final IconData icon;
-  final VoidCallback? onPress;
-  @override
-  Widget build(BuildContext context) {
-    return RawMaterialButton(
-      onPressed: onPress,
-      elevation: 6.0,
-      constraints: const BoxConstraints.tightFor(
-        width: 56.0,
-        height: 56.0,
-      ),
-      shape: const CircleBorder(),
-      fillColor: const Color(0xFF4C4F5E),
-      child: Icon(icon),
     );
   }
 }
