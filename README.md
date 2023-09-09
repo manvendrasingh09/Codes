@@ -1,2 +1,2 @@
 # Codes
-Codes that I did in college
+In this repository all the programs that I did during my college years are present.
