@@ -1,16 +1,7 @@
-# dicee
+# Dicee App
 
-A new Flutter project.
+This is my fourth Flutter project.
+<br>This app has two dice and while tapping the anyone of the die value of both the dice will be changed into any random number.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Preview of the Application
+https://github.com/manvendrasingh09/Codes/assets/113695456/6b44ef9d-0369-47ca-a34e-182e85e5cd90
