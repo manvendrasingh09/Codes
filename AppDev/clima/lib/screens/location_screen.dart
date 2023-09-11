@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:clima/utilities/constants.dart';
 import 'package:clima/services/weather.dart';
+import 'city_screen.dart';
 
 class LocationScreen extends StatefulWidget {
-  LocationScreen({required this.locationWeather, super.key});
+  const LocationScreen({required this.locationWeather, super.key});
 
   final locationWeather;
 
   @override
-  _LocationScreenState createState() => _LocationScreenState();
+  State<LocationScreen> createState() => _LocationScreenState();
 }
 
 class _LocationScreenState extends State<LocationScreen> {
@@ -20,13 +21,19 @@ class _LocationScreenState extends State<LocationScreen> {
   @override
   void initState() {
     super.initState();
-
     updateUI(widget.locationWeather);
   }
 
   void updateUI(dynamic weatherData) {
     setState(
       () {
+        if (weatherData == null) {
+          temperature = 0;
+          weatherIcon = 'Error';
+          message = 'Unable to fetch the weather data';
+          cityName = ' ';
+          return;
+        }
         double temp = weatherData['main']['temp'];
         temperature = temp.toInt();
         message = weather.getMessage(temperature);
@@ -59,14 +66,24 @@ class _LocationScreenState extends State<LocationScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   MaterialButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      var weatherData = await weather.getLocationWeather();
+                      updateUI(weatherData);
+                    },
                     child: const Icon(
                       Icons.near_me,
                       size: 50.0,
                     ),
                   ),
                   MaterialButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CityScreen(),
+                        ),
+                      );
+                    },
                     child: const Icon(
                       Icons.location_city,
                       size: 50.0,
