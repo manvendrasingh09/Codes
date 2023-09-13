@@ -39,7 +39,7 @@ class CoinData {
     var url = Uri.https(
       'rest.coinapi.io',
       'v1/exchangerate/$crypto/$currency',
-      {'apikey': '7D2A55AF-9D64-4770-AE70-E35000125AE9'},
+      {'apikey': ' '}, //ADD YOUR API KEY HERE
     );
 
     http.Response response = await http.get(url);
