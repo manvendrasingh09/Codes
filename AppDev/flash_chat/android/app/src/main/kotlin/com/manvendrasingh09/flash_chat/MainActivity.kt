@@ -1,4 +1,4 @@
-package manvendrasingh.com.flash_chat
+package com.manvendrasingh.flash_chat
 
 import io.flutter.embedding.android.FlutterActivity
 
