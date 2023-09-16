@@ -72,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     showSpinner = true;
                   });
                   try {
-                    await _auth.createUserWithEmailAndPassword(
+                    await _auth.signInWithEmailAndPassword(
                         email: email, password: password);
                     Navigator.pushNamed(context, ChatScreen.id);
                     setState(() {
@@ -80,6 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     });
                   } catch (e) {
                     print(e);
+                    showSpinner = false;
                   }
                 },
               ),
