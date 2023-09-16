@@ -65,25 +65,43 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 24.0,
               ),
               RoundedButton(
-                title: 'Log In',
-                colour: Colors.lightBlueAccent,
-                onPress: () async {
-                  setState(() {
-                    showSpinner = true;
-                  });
-                  try {
-                    await _auth.signInWithEmailAndPassword(
-                        email: email, password: password);
-                    Navigator.pushNamed(context, ChatScreen.id);
+                  colour: Colors.lightBlueAccent,
+                  title: 'Log In',
+                  onPress: () async {
                     setState(() {
-                      showSpinner = false;
+                      showSpinner = true;
                     });
-                  } catch (e) {
-                    print(e);
-                    showSpinner = false;
-                  }
-                },
-              ),
+                    try {
+                      await _auth.signInWithEmailAndPassword(
+                          email: email, password: password);
+                      Navigator.pushNamed(context, ChatScreen.id);
+                      setState(() {
+                        showSpinner = false;
+                      });
+                    } on FirebaseAuthException catch (e) {
+                      if (e.code == 'user-not-found') {
+                        setState(() {
+                          showSpinner = false;
+                        });
+                      } else if (e.code == 'wrong-password') {
+                        setState(() {
+                          showSpinner = false;
+                        });
+                      } else if (e.code == 'invalid-email') {
+                        setState(() {
+                          showSpinner = false;
+                        });
+                      } else {
+                        setState(() {
+                          showSpinner = false;
+                        });
+                      }
+                    } catch (e) {
+                      setState(() {
+                        showSpinner = false;
+                      });
+                    }
+                  }),
             ],
           ),
         ),
@@ -91,3 +109,18 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
+// RoundedButton(
+// colour: Colors.lightBlueAccent,
+// onPress: () {
+// _auth
+//     .signInWithEmailAndPassword(
+// email: email, password: password)
+//     .then(
+// (value) {
+// Navigator.pushNamed(context, ChatScreen.id);
+// },
+// ).catchError((onError) {
+// print(onError);
+// });
+// },
+// title: 'Log In')

@@ -1,9 +1,9 @@
-//import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flash_chat/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-//final _firestore = FirebaseFirestore.instance;
+final _firestore = FirebaseFirestore.instance;
 late User loggedInUser;
 
 class ChatScreen extends StatefulWidget {
@@ -16,7 +16,7 @@ class _ChatScreenState extends State<ChatScreen> {
   final messageTextController =
       TextEditingController(); // Clears text box after clicking send button
   final _auth = FirebaseAuth.instance;
-  //late String messageText;
+  late String messageText;
 
   getCurrentUser() {
     final user = _auth.currentUser;
@@ -28,6 +28,16 @@ class _ChatScreenState extends State<ChatScreen> {
         print(e);
       }
     }
+  }
+
+  void messagesStream() async {
+    await _firestore.collection('messages').snapshots().forEach(
+      (snapshot) {
+        for (var message in snapshot.docs) {
+          print(message.data());
+        }
+      },
+    );
   }
 
   @override
@@ -45,8 +55,9 @@ class _ChatScreenState extends State<ChatScreen> {
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () {
-              _auth.signOut();
-              Navigator.pop(context);
+              messagesStream();
+              // _auth.signOut();
+              // Navigator.pop(context);
             },
           ),
         ],
@@ -65,15 +76,21 @@ class _ChatScreenState extends State<ChatScreen> {
                 children: <Widget>[
                   Expanded(
                     child: TextField(
+                      controller: messageTextController,
                       onChanged: (value) {
-                        //Do something with the user input.
+                        messageText = value;
                       },
                       decoration: kMessageTextFieldDecoration,
                     ),
                   ),
                   MaterialButton(
                     onPressed: () {
-                      //Implement send functionality.
+                      messageTextController.clear();
+                      _firestore.collection('messages').add({
+                        'Text': messageText,
+                        'Sender': loggedInUser.email,
+                        'Time': FieldValue.serverTimestamp(),
+                      });
                     },
                     child: const Text(
                       'Send',
