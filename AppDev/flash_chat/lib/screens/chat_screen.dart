@@ -1,5 +1,10 @@
+//import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flash_chat/constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+//final _firestore = FirebaseFirestore.instance;
+late User loggedInUser;
 
 class ChatScreen extends StatefulWidget {
   static const String id = 'chat';
@@ -8,6 +13,29 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  final messageTextController =
+      TextEditingController(); // Clears text box after clicking send button
+  final _auth = FirebaseAuth.instance;
+  //late String messageText;
+
+  getCurrentUser() {
+    final user = _auth.currentUser;
+    if (user != null) {
+      try {
+        loggedInUser = user;
+        print(loggedInUser.email);
+      } catch (e) {
+        print(e);
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getCurrentUser();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,9 +43,10 @@ class _ChatScreenState extends State<ChatScreen> {
         leading: null,
         actions: <Widget>[
           IconButton(
-            icon: const Icon(Icons.close),
+            icon: const Icon(Icons.logout),
             onPressed: () {
-              //Implement logout functionality
+              _auth.signOut();
+              Navigator.pop(context);
             },
           ),
         ],
