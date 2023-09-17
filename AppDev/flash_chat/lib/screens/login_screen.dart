@@ -30,11 +30,13 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Hero(
-                tag: 'logo',
-                child: Container(
-                  height: 200.0,
-                  child: Image.asset('images/logo.png'),
+              Flexible(
+                child: Hero(
+                  tag: 'logo',
+                  child: SizedBox(
+                    height: 200.0,
+                    child: Image.asset('images/logo.png'),
+                  ),
                 ),
               ),
               const SizedBox(
@@ -65,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 24.0,
               ),
               RoundedButton(
-                  colour: Colors.lightBlueAccent,
+                  colour: const Color(0xFF4DCB5C),
                   title: 'Log In',
                   onPress: () async {
                     setState(() {
@@ -109,18 +111,3 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
-// RoundedButton(
-// colour: Colors.lightBlueAccent,
-// onPress: () {
-// _auth
-//     .signInWithEmailAndPassword(
-// email: email, password: password)
-//     .then(
-// (value) {
-// Navigator.pushNamed(context, ChatScreen.id);
-// },
-// ).catchError((onError) {
-// print(onError);
-// });
-// },
-// title: 'Log In')
