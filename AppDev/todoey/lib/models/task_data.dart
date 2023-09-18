@@ -4,9 +4,11 @@ import 'dart:collection';
 
 class TaskData extends ChangeNotifier {
   final List<Task> _tasks = [
-    Task(name: 'Task1'),
-    Task(name: 'Task2'),
-    Task(name: 'Task3'),
+    Task(name: 'Click on the Floating Action Button to Add New Task'),
+    Task(
+        name:
+            'Click on the Checkbox when the task is completed again click to undo it'),
+    Task(name: 'Long press any task to delete it from the task list'),
   ];
 
   UnmodifiableListView<Task> get tasks {
