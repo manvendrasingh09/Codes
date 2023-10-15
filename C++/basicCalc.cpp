@@ -23,7 +23,7 @@ int main()
         cout<<a/b;
         break;
         default:
-        cout<<"Enter a valid operator";
+        cout<<"Enter a valid operator"<<endl;
         break;
     }
     return 0;
