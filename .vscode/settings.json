@@ -6,5 +6,6 @@
         "stop_token": "cpp",
         "iostream": "cpp",
         "ostream": "cpp"
-    }
+    },
+    "cmake.sourceDirectory": "/Users/manvendrasingh/Documents/GitHub/Codes/AppDev/Dicee/linux"
 }
