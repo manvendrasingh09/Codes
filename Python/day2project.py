@@ -1,6 +1,6 @@
 #Tip Calculator
 
-print("Welcome to Tip Calculator")
+print("Welcome to Tip Calculator!")
 billWithoutTip=float(input("What was the total bill? $"))
 tip=int(input("How much tip you want to give? $"))
 people=int(input("Number of people to Split bill with: "))
