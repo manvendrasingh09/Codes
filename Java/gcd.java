@@ -15,6 +15,5 @@ public class gcd {
             count++;
         }
         System.out.println("GCD: "+result);
-        sc.close();
     }
 }
