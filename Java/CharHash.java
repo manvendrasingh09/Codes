@@ -5,11 +5,12 @@ public class CharHash {
         Scanner sc=new Scanner(System.in);
         System.out.print("Enter the String: ");
         String s=sc.nextLine();
-        int hash[]=new int[26];
 
+        int hash[]=new int[26];
         for(int i=0; i<s.length(); i++){
             hash[s.charAt(i)-'a']++;
         }
+
         System.out.print("Enter the Number of Queries: ");
         int q=sc.nextInt();
         sc.nextLine();
