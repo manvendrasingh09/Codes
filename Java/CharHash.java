@@ -6,9 +6,9 @@ public class CharHash {
         System.out.print("Enter the String: ");
         String s=sc.nextLine();
 
-        int hash[]=new int[26];
+        int hash[]=new int[256];
         for(int i=0; i<s.length(); i++){
-            hash[s.charAt(i)-'a']++;
+            hash[s.charAt(i)]++;
         }
 
         System.out.print("Enter the Number of Queries: ");
@@ -16,7 +16,7 @@ public class CharHash {
         sc.nextLine();
         for(int i=1; i<=q; i++){
             char c=sc.nextLine().charAt(0);
-            System.out.println(hash[c-'a']);
+            System.out.println(hash[c]);
         }
     }
 }
