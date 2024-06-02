@@ -18,6 +18,7 @@ public class CountByHashing{
 
         System.out.print("Enter the Number of Queries: ");
         int q=sc.nextInt();
+        
         for(int i=1; i<=q; i++){
             System.out.print("Enter the Number: ");
             int num=sc.nextInt();
