@@ -10,11 +10,11 @@ public class sumofOdd {
         return sum;
     }
     public static void main(String[] args) {
-        Scanner sc=new Scanner(System.in);
-        System.out.print("Enter the number: ");
-        int n=sc.nextInt();
-        int sum=oddsum(n);
-        System.out.println(sum);
-        sc.close();
+        try (Scanner sc = new Scanner(System.in)) {
+            System.out.print("Enter the number: ");
+            int n = sc.nextInt();
+            int sum = oddsum(n);
+            System.out.println(sum);
+        }
     }
 }
