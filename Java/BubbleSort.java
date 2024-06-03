@@ -1,19 +1,17 @@
 import java.util.Scanner;
 
-public class SelectionSort {
+public class BubbleSort {
 
-    public static void selection(int arr[], int size){
-        for(int i=0; i<=size-2; i++){
-            int min=i;
+    public static void bubble(int arr[], int size){
+        for(int i=size-1; i>=1; i--){
             int temp;
-            for(int j=i; j<=size-1; j++){
-                if(arr[j]<arr[min]){
-                    min=j;
+            for(int j=0; j<=i-1; j++){
+                if(arr[j]>arr[j+1]){
+                    temp=arr[j];
+                    arr[j]=arr[j+1];
+                    arr[j+1]=temp;
                 }
             }
-            temp=arr[i];
-            arr[i]=arr[min];
-            arr[min]=temp;
         }
     }
     public static void main(String[] args) {
@@ -26,7 +24,7 @@ public class SelectionSort {
         for(int i=0; i<size; i++){
             arr[i]=sc.nextInt();
         }
-        selection(arr,size);
+        bubble(arr,size);
         System.out.println("Array after Sorting: ");
         for(int i=0; i<size; i++){
             System.out.print(+arr[i]+" ");
