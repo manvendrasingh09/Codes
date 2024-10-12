@@ -1,0 +1,7 @@
+ORG 0000H
+	MOV A, #0x92; 
+	ADD A, #0x23; 
+	ADD A, #0x66;
+	ADD A, #0x87; 
+	ADD A, #0xF5;
+END

@@ -1,0 +1,5 @@
+ORG 0000H
+	MOV A, #0x10; 
+	MOV B, #0x03; 
+	DIV AB; 
+END

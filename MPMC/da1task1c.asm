@@ -1,0 +1,5 @@
+ORG 000H
+	MOV A, #0x05;
+	MOV B, #0x03;
+	MUL AB;
+END

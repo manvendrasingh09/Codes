@@ -1,0 +1,14 @@
+ORG 0000H
+	MOV SP, #0x07;
+	MOV R0, #0x10;
+	MOV R1, #0x20;
+	MOV R2, #0x30;
+	MOV R3, #0x40;
+	MOV R4, #0x50;
+
+	PUSH 0;
+	PUSH 1;
+	PUSH 2;
+	PUSH 3;
+	PUSH 4;
+END
