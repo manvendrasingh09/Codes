@@ -17,6 +17,7 @@ public class CharHash {
         for(int i=1; i<=q; i++){
             char c=sc.nextLine().charAt(0);
             System.out.println(hash[c]);
+            sc.close();
         }
     }
 }
