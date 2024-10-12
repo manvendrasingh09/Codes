@@ -1,21 +1,18 @@
-class Student{
-    String name;
-    int age;
-    
-    public void info(){
-        System.out.println(this.name);
-        System.out.println(this.age);
+class Shape{
+    public void area(){
+        System.out.println("Display area");
     }
-    Student(){
-        System.out.println("Constructor called");
-    } 
+}
+
+class  Triangle extends Shape{
+    public void area(int b, int h){
+        System.out.println("Area of triangle: "+0.5*b*h);
+    }
 }
 
 public class classes{
     public static void main(String[] args) {
-        Student s1 = new Student();
-        s1.name = "John";
-        s1.age = 20;
-        s1.info();
+        Triangle s1 = new Triangle();
+        s1.area(5,3);
     }
 }
