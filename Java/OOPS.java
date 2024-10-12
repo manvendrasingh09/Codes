@@ -1,19 +1,18 @@
-interface Animal {
-    void walk();
-    void eat();
+class Student{
+    String name;
+    static String school;
+    public static void changeSchool() {
+        school = "newschool";
     }
-    class Horse implements Animal {
-    @Override
-    public void walk() {
-        System.out.println("walks on 4 legs");
-    }
-    
-    @Override
-    public void eat(){}
-    }
-    public class OOPS{
-    public static void main (String args []) {
-    Horse horse = new Horse();
-    horse.walk();
+}
+public class OOPS {
+    public static void main (String args []){
+        Student.school = "ABC";
+        Student student1 = new Student ();
+        student1.name = "tony";
+        Student student2 = new Student ();
+        student2.name = "tony";
+        System.out.println (Student.school);
+        System.out.println (Student.school);
     }
 }
