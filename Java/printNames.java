@@ -11,6 +11,7 @@ public class printNames {
         }
         for(int i=0;i<size;i++){
             System.out.println("Name "+(i+1)+ " is "+ names[i]);
+            sc.close();
         }
     }
 }

@@ -16,5 +16,6 @@ public class avg{
         float answer=average(a, b, c);
         System.out.print("Average of Three Numbers: ");
         System.out.println(answer);
+        sc.close();
     }
 }
