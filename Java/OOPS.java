@@ -12,7 +12,9 @@ public class OOPS {
         student1.name = "tony";
         Student student2 = new Student ();
         student2.name = "tony";
-        System.out.println (Student.school);
+        System.out.println(student1.name);
+        System.out.println(student2.name);
+        System.out.println(Student.school);
         System.out.println (Student.school);
     }
 }
