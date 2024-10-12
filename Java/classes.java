@@ -12,5 +12,7 @@ class  Triangle extends Shape{
 
 public class classes{
     public static void main(String[] args) {
+        Triangle t = new Triangle();
+        t.area(10, 20);
     }
 }

@@ -17,19 +17,20 @@ public class SelectionSort {
         }
     }
     public static void main(String[] args) {
-        Scanner sc=new Scanner(System.in);
-        System.out.print("Enter the Size of the Array: ");
-        int size=sc.nextInt();
+        try (Scanner sc = new Scanner(System.in)) {
+            System.out.print("Enter the Size of the Array: ");
+            int size = sc.nextInt();
 
-        int arr[]=new int[size];
-        System.out.print("Enter the Elements in the Array: ");
-        for(int i=0; i<size; i++){
-            arr[i]=sc.nextInt();
-        }
-        selection(arr,size);
-        System.out.println("Array after Sorting: ");
-        for(int i=0; i<size; i++){
-            System.out.print(+arr[i]+" ");
+            int arr[] = new int[size];
+            System.out.print("Enter the Elements in the Array: ");
+            for (int i = 0; i < size; i++) {
+                arr[i] = sc.nextInt();
+            }
+            selection(arr, size);
+            System.out.println("Array after Sorting: ");
+            for (int i = 0; i < size; i++) {
+                System.out.print(arr[i] + " ");
+            }
         }
     }
 }
