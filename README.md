@@ -1,2 +1,3 @@
 # Codes
-In this repository all the programs that I did during my college years are present.
+
+Welcome! This collection features all the programs and projects completed during my college years.
